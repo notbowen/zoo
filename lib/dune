@@ -1,0 +1,3 @@
+(library
+ (name zoo)
+ (preprocess (pps ppx_deriving.show)))
