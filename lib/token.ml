@@ -1,10 +1,9 @@
 type t =
   (* Anything else *)
   | Illegal
-  | Eof
   (* Identifiers + Literals *)
-  | Ident
-  | Int
+  | Ident of string
+  | Int of string
   (* Operators *)
   | Assign
   | Plus
@@ -18,6 +17,9 @@ type t =
   (* Keywords *)
   | Function
   | Let
-[@@deriving show]
+  [@@deriving show { with_path = false }]
+
+let lookup_ident i =
+  match i with "fn" -> Function | "let" -> Let | i -> Ident i
 
 let show t = show t
