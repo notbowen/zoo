@@ -14,6 +14,11 @@ let advance_char lexer =
     let ch = String.get lexer.input position in
     Some { input = lexer.input; position; ch }
 
+let peek_char lexer =
+  let length = String.length lexer.input in
+  let peek_pos = lexer.position + 1 in
+  if peek_pos >= length then None else Some lexer.input.[peek_pos]
+
 let is_letter c = ('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z') || c = '_'
 let is_digit c = '0' <= c && c <= '9'
 
@@ -59,12 +64,20 @@ let next_token lexer =
   else
     let token =
       match lexer.ch with
+      | '=' when peek_char lexer = Some '=' -> Eq
       | '=' -> Assign
+      | '+' -> Plus
+      | '-' -> Minus
+      | '!' when peek_char lexer = Some '=' -> Neq
+      | '!' -> Bang
+      | '/' -> Slash
+      | '*' -> Asterisk
+      | '<' -> Lt
+      | '>' -> Gt
       | ';' -> Semicolon
       | '(' -> LParen
       | ')' -> RParen
       | ',' -> Comma
-      | '+' -> Plus
       | '{' -> LBrace
       | '}' -> RBrace
       | _ -> Illegal
