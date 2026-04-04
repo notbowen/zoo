@@ -1,6 +1,7 @@
 type t =
   (* Anything else *)
   | Illegal
+  | Eof
   (* Identifiers + Literals *)
   | Ident of string
   | Int of string

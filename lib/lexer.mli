@@ -1,4 +1,4 @@
 type t
 
-val init : string -> t option
-val next_token : t option -> (t option * Token.t) option
+val init : string -> t
+val next_token : t -> t * Token.t

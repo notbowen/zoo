@@ -3,11 +3,8 @@ let start in_c out_c =
   let input = input_line in_c in
   let lexer = Lexer.init input in
   let rec parse lex =
-    let res = Lexer.next_token lex in
-    match res with
-    | None -> ()
-    | Some (lex, tok) ->
-        let () = Printf.fprintf out_c "%s\n" (Token.show tok) in
-        parse lex
+    let lex, tok = Lexer.next_token lex in
+    let () = Printf.fprintf out_c "%s\n" (Token.show tok) in
+    if tok = Token.Eof then () else parse lex
   in
   parse lexer

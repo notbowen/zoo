@@ -28,12 +28,9 @@ let input =
 let%expect_test "lexer" =
   let lexer = Lexer.init input in
   let rec parse lex =
-    let res = Lexer.next_token lex in
-    match res with
-    | None -> ()
-    | Some (lex, tok) ->
-        let () = Printf.printf "%s\n" (Token.show tok) in
-        parse lex
+    let lex, tok = Lexer.next_token lex in
+    let () = Printf.printf "%s\n" (Token.show tok) in
+    if tok = Token.Eof then () else parse lex
   in
   parse lexer;
   [%expect
@@ -113,4 +110,5 @@ let%expect_test "lexer" =
     Assign
     (Int "9")
     Semicolon
+    Eof
     |}]
