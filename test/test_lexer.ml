@@ -1,7 +1,5 @@
 open Zoo
 
-let ( let* ) = Option.bind
-
 let input =
   {|
   let five = 5;
